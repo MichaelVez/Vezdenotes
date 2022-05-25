@@ -59,5 +59,6 @@ button {
   border: none;
 }
 .noteText:not(input[readonly]) {
-  color: red;
+  color: white;
+  background-color: coral;
 }

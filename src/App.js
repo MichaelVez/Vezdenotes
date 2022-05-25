@@ -24,11 +24,11 @@ export default class App extends Component {
       this.setState({ input: "" });
     }
   };
-  noteBtnDone = (key) => {};
-  noteBtnEdit = (key) => {
-    console.log(this.state);
+  noteBtnDone = (key) => {
     console.log(key);
+    console.log(this.state.notes);
   };
+  noteBtnEdit = (key) => {};
   noteBtnDelete = (key) => {
     this.setState((prevState) => {
       const arrOfObjAfterDelete = prevState.notes.filter((note) => {
@@ -65,6 +65,7 @@ export default class App extends Component {
         noteBtnDone={this.noteBtnDone}
         noteBtnEdit={this.noteBtnEdit}
         noteBtnDelete={this.noteBtnDelete}
+        // textDeco={this.state.textDeco}
       />
     );
   }

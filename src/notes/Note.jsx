@@ -7,25 +7,21 @@ export default class Note extends Component {
       input: this.props.input,
       title: "",
       read: true,
+      //   textDeco: "line-through",
+      textDeco: "none",
+      disabled: false,
     };
     this.inputRef = React.createRef();
     this.handleClickOutside = this.handleClickOutside.bind(this);
   }
   componentDidMount() {
-    // this.setState({ title: this.props.input });
-  }
-
-  componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
   }
-
+  componentDidUpdate() {}
   componentWillUnmount() {
     document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  /**
-   * Alert if clicked on outside of element
-   */
   handleClickOutside(event) {
     if (this.inputRef && !this.inputRef.current.contains(event.target)) {
       this.setState({ read: true });
@@ -34,13 +30,13 @@ export default class Note extends Component {
 
   handleEdit = (e) => {
     this.setState({ input: e.target.value });
-    console.log(this.state.input);
   };
   render() {
     return (
       <div className='note' key={this.props.id} id={this.props.id}>
-        {/* <div className='noteText'>{this.props.input}</div> */}
         <input
+          disabled={this.state.disabled}
+          style={{ textDecoration: this.state.textDeco }}
           ref={this.inputRef}
           readOnly={this.state.read}
           value={this.state.input}
@@ -51,7 +47,9 @@ export default class Note extends Component {
         <div className='noteBtn'>
           <div
             onClick={() => {
-              this.props.noteBtnDone(this.props.id);
+              if (this.state.textDeco === "none")
+                this.setState({ textDeco: "line-through" });
+              else this.setState({ textDeco: "none" });
             }}
             className='notebtn done'
           >
